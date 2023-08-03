@@ -1,0 +1,78 @@
+version: "3.7"
+
+services:
+    php:
+        image: c15k02k18/php:8.2 # Add -xdebug to enable the debugger in your local env
+        restart: always
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: "${APP_ENVIRONMENT:-local}"
+            APP_ENVIRONMENT: "${APP_ENVIRONMENT:-local}"
+            MYSQL_USER: "${MYSQL_USER:-cmanager}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD:-cmanager}"
+            ECHO_PORT: "${ECHO_PORT:-6001}"
+            XDEBUG_CONFIG: "remote_host=localhost"
+            PHP_IDE_CONFIG: "serverName=cmanager"
+            VITE_ECHO_SOCKET_HOST: "${VITE_ECHO_SOCKET_HOST:-localhost:6001}"
+        volumes:
+            - .:/var/www
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+        networks:
+            - cmanager-network
+        working_dir: "/var/www"
+        expose:
+            -   "9000"
+        command: 'php-fpm'
+
+    db:
+        image: mariadb:latest
+        networks:
+            - cmanager-network
+        environment:
+            MYSQL_USER: ${MYSQL_USER:-cmanager}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-cmanager}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-toor}
+        volumes:
+            - "${DB_LOCAL_DATA_PATH:-./storage/db}:/var/lib/mysql"
+            - "./docker/mysql/my.cnf:/etc/mysql/my.cnf"
+
+    redis:
+        restart: always
+        image: redis:latest
+        networks:
+            - cmanager-network
+        healthcheck:
+            test: "CMD redis-cli ping"
+            retries: 3
+            timeout: 5s
+
+    mailer:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - cmanager-network
+
+    nginx:
+        image: nginx:latest
+        restart: always
+        tty: true
+        volumes:
+            - .:/var/www
+            - ./docker/nginx/default.conf:/etc/nginx/nginx.conf
+            - ./docker/nginx/headers.conf:/etc/nginx/headers.conf
+            - ./docker/nginx/gzip.conf:/etc/nginx/gzip.conf
+            - ./docker/nginx/cache.conf:/etc/nginx/cache.conf
+            - ./docker/nginx/proxy.conf:/etc/nginx/proxy.conf
+            - ./docker/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
+        ports:
+            - "${API_PORT:-8087}:80"
+        depends_on:
+            - php
+        networks:
+            - cmanager-network
+
+networks:
+    cmanager-network:
+        driver: bridge

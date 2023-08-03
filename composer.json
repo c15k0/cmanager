@@ -1,0 +1,16 @@
+{
+    "name": "c15k0/cmanager",
+    "description": "Campaign manager for email",
+    "type": "project",
+    "require": {
+        "open-admin-org/open-admin": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fran Lopez",
+            "email": "fran.lopez84@hotmail.es"
+        }
+    ],
+    "minimum-stability": "stable"
+}
