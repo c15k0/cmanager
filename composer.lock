@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e50509d4622aece925481a35397ccc8b",
+    "content-hash": "0046ad9bd50939226864906eb87718b0",
     "packages": [
         {
             "name": "brick/math",
@@ -60,6 +60,54 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "ckeditor/ckeditor",
+            "version": "4.22.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource",
+                    "homepage": "https://cksource.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor.",
+            "homepage": "https://ckeditor.com/ckeditor-4/",
+            "keywords": [
+                "CKEditor",
+                "ckeditor4",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/ckeditor",
+                "issues": "https://github.com/ckeditor/ckeditor4/issues",
+                "source": "https://github.com/ckeditor/ckeditor4",
+                "wiki": "https://ckeditor.com/docs/ckeditor4/latest/"
+            },
+            "time": "2023-06-30T13:35:30+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -2644,6 +2692,121 @@
                 }
             ],
             "time": "2023-02-08T01:06:31+00:00"
+        },
+        {
+            "name": "open-admin-ext/ckeditor",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/open-admin-org/ckeditor.git",
+                "reference": "f605a216d3db1f365d55b33c2cea13bda58145b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/open-admin-org/ckeditor/zipball/f605a216d3db1f365d55b33c2cea13bda58145b8",
+                "reference": "f605a216d3db1f365d55b33c2cea13bda58145b8",
+                "shasum": ""
+            },
+            "require": {
+                "ckeditor/ckeditor": "4.*",
+                "laravel/framework": ">=7.0",
+                "open-admin-org/open-admin": "~1.0",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "laravel/laravel": "~7.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OpenAdmin\\Admin\\CKEditor\\CKEditorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OpenAdmin\\Admin\\CKEditor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "open-admin",
+                    "email": "info@open-admin.org"
+                }
+            ],
+            "description": "Integrate CKEDITOR into open-admin",
+            "homepage": "https://github.com/open-admin-ext/ckeditor",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "extension",
+                "open-admin",
+                "wysiwyg"
+            ],
+            "support": {
+                "issues": "https://github.com/open-admin-org/ckeditor/issues",
+                "source": "https://github.com/open-admin-org/ckeditor/tree/v1.0.2"
+            },
+            "time": "2022-07-06T15:52:31+00:00"
+        },
+        {
+            "name": "open-admin-ext/helpers",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/open-admin-org/helpers.git",
+                "reference": "e08009cc67de7109db327d39ee58d67ae31c016d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/open-admin-org/helpers/zipball/e08009cc67de7109db327d39ee58d67ae31c016d",
+                "reference": "e08009cc67de7109db327d39ee58d67ae31c016d",
+                "shasum": ""
+            },
+            "require": {
+                "open-admin-org/open-admin": "~1.0",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OpenAdmin\\Admin\\Helpers\\HelpersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OpenAdmin\\Admin\\Helpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "open-admin",
+                    "email": "info@open-admin.org"
+                }
+            ],
+            "description": "Helpers extension for open-admin",
+            "homepage": "https://github.com/open-admin-org/helpers",
+            "keywords": [
+                "helpers",
+                "open-admin"
+            ],
+            "support": {
+                "issues": "https://github.com/open-admin-org/helpers/issues",
+                "source": "https://github.com/open-admin-org/helpers/tree/v1.0.3"
+            },
+            "time": "2022-02-17T16:10:25+00:00"
         },
         {
             "name": "open-admin-org/open-admin",

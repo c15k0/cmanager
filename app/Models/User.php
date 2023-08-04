@@ -4,11 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OpenAdmin\Admin\Auth\Database\Administrator;
 
-class User extends Authenticatable
+class User extends Administrator
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,4 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function customers() {
+        return $this->belongsToMany(Customer::class, 'customers_users', 'user_id', 'customer_id');
+    }
 }

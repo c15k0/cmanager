@@ -13,6 +13,10 @@ services:
             ECHO_PORT: "${ECHO_PORT:-6001}"
             XDEBUG_CONFIG: "remote_host=localhost"
             PHP_IDE_CONFIG: "serverName=cmanager"
+            VITE_ECHO_SOCKET_HOST: "${VITE_ECHO_SOCKET_HOST:-localhost:6001}"
+            ADMIN_HTTPS: "${ADMIN_HTTPS:-false}"
+            APP_DEBUG: "${APP_DEBUG:-true}"
+            MAIL_MAILER: "${MAIL_MAILER:-smtp}"
         volumes:
             - .:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -28,9 +32,9 @@ services:
         networks:
             - cmanager-network
         environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-toor}
             MYSQL_USER: ${MYSQL_USER:-cmanager}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD:-cmanager}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-toor}
             MYSQL_DATABASE: ${MYSQL_DATABASE:-cmanager}
         volumes:
             - "${DB_LOCAL_DATA_PATH:-./storage/db}:/var/lib/mysql"
@@ -67,6 +71,23 @@ services:
             - ./docker/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
         ports:
             - "${API_PORT:-8087}:80"
+        depends_on:
+            - php
+        networks:
+            - cmanager-network
+
+    admin:
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        environment:
+            PMA_USER: ${MYSQL_USER:-cmanager}
+            PMA_PASSWORD: ${MYSQL_USER:-cmanager}
+            MYSQL_USER: ${MYSQL_USER:-cmanager}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-cmanager}
+            MYSQL_DATABASE: ${MYSQL_DATABASE:-cmanager}
+            PMA_HOST: db
+        ports:
+            - "${ADMIN_PORT:-8088}:80"
         depends_on:
             - php
         networks:

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Open Admin',
+    'name' => 'Campaign Manager',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Open</b> Admin',
+    'logo' => '<b>Campaign</b> Manager',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +36,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>OA</b>',
+    'logo-mini' => '<b>CM</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +87,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Admin',
+    'title' => 'Campaign Manager',
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +126,7 @@ return [
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
-                'model'  => OpenAdmin\Admin\Auth\Database\Administrator::class,
+                'model'  => User::class,
             ],
         ],
 
@@ -158,7 +160,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'admin',
+        'disk' => 'local',
 
         // Image and file upload path under the disk above.
         'directory' => [
@@ -273,7 +275,7 @@ return [
     | Supported: "openstreetmaps", "tencent", "google", "yandex".
     |
     */
-    'map_provider' => 'openstreetmaps',
+    'map_provider' => 'google',
 
     /*
     |--------------------------------------------------------------------------
@@ -367,14 +369,14 @@ return [
     | Enable/Disable sidebar menu search
     |--------------------------------------------------------------------------
     */
-    'enable_menu_search' => true,
+    'enable_menu_search' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Enable/Disable user_panel in sidebar
     |--------------------------------------------------------------------------
     */
-    'enable_user_panel' => false,
+    'enable_user_panel' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -410,6 +412,15 @@ return [
     |
     */
     'extensions' => [
+        'ckeditor' => [
+            //Set to false if you want to disable this extension
+            'enable' => true,
+            // Editor configuration
+            'config' => [
+                'language'      => 'es',
+                'height'        => 250,
+            ]
+        ]
 
     ],
 ];
