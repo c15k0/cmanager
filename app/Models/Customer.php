@@ -11,11 +11,11 @@ class Customer extends Model
     use SoftDeletes;
     protected $fillable = [
         'name',
-        'config',
+        'configuration',
     ];
 
     protected $casts = [
-        'json' => 'array',
+        'configuration' => 'json',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

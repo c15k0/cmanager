@@ -3,11 +3,11 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Selectors\UserSelector;
+use App\Models\Customer;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\Customer;
 
 class CustomerController extends AdminController
 {
@@ -67,11 +67,16 @@ class CustomerController extends AdminController
     protected function form()
     {
         $form = new Form(new Customer());
-
-        $form->text('name', __('Name'));
-        $form->textarea('configuration', __('Configuration'));
-        $form->ckeditor('signature', __('Signature'));
-        $form->belongsToMany('users', UserSelector::class, __('Users'));
+        $form->tab(__('General'), function($form) {
+            $form->text('name', __('Name'));
+            $form->ckeditor('signature', __('Signature'));
+            $form->table('configuration', __('Configuration'), function ($form) {
+                $form->text('key', __('Clave'))->rules('required');
+                $form->text('value', __('Valor'))->rules('required');
+            });
+        })->tab(__('Usuarios'), function($form) {
+            $form->belongsToMany('users', UserSelector::class, __('Users'));
+        });
 
         return $form;
     }

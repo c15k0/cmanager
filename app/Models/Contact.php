@@ -28,4 +28,8 @@ class Contact extends Model
     public function groups(): BelongsToMany {
         return $this->belongsToMany(Group::class, 'groups_contacts', 'contact_id', 'group_id');
     }
+
+    public function receivers() {
+        return $this->hasMany(Receiver::class);
+    }
 }

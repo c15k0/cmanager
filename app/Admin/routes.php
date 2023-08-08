@@ -1,8 +1,10 @@
 <?php
 
+use App\Admin\Controllers\CampaignController;
 use App\Admin\Controllers\ContactController;
 use App\Admin\Controllers\CustomerController;
 use App\Admin\Controllers\GroupController;
+use App\Admin\Controllers\ReceiverController;
 use App\Admin\Controllers\TemplateController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +24,7 @@ Route::group([
     $router->resource('contacts', ContactController::class);
     $router->resource('groups', GroupController::class);
     $router->resource('templates', TemplateController::class);
+    $router->resource('campaigns', CampaignController::class);
+    $router->resource('receivers', ReceiverController::class);
 
 });

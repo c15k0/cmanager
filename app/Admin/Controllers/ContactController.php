@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Selectors\GroupSelector;
+use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,6 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\Contact;
 
 class ContactController extends AdminController
 {
