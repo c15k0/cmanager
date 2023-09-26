@@ -26,5 +26,4 @@ Route::group([
     $router->resource('templates', TemplateController::class);
     $router->resource('campaigns', CampaignController::class);
     $router->resource('receivers', ReceiverController::class);
-
 });

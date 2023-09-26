@@ -420,7 +420,11 @@ return [
                 'language'      => 'es',
                 'height'        => 250,
             ]
-        ]
+        ],
+        'media-manager' => [
+            'disk' => 'public',   // Points to the disk set in config/filesystem.php
+            'allowed_ext' => 'jpg,jpeg,png,pdf,doc,docx,zip'
+        ],
 
     ],
 ];

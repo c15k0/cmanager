@@ -19,4 +19,11 @@ class Group extends Model
         return $this->belongsToMany(Contact::class, 'groups_contacts', 'group_id', 'contact_id');
     }
 
+    public function bounced_contacts() {
+        return $this->contacts()->whereNotNull('bounced_at');
+    }
+
+    public function unsubscribed_contacts() {
+        return $this->contacts()->whereNotNull('unsubscribed_at');
+    }
 }

@@ -87,4 +87,11 @@ return [
     'current_page'          => 'Página actual',
     'selected_rows'         => 'Filas seleccionadas',
     'menu_titles'           => [],
+    'upload' => 'Subir',
+    'new_folder' => 'Nueva carpeta',
+    'select' => 'Seleccionar',
+    'grid_items_selected' => "Elementos seleccionados",
+    'batch_edit' => 'Edición masiva',
+    'time' => 'Fecha de creación',
+    'size' => 'Tamaño fichero',
 ];

@@ -14,8 +14,16 @@ class Template extends Model
         'name', 'label', 'raw',
     ];
 
+    protected $casts = [
+        'updated_at' => 'datetime',
+    ];
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function campaigns() {
+        return $this->belongsTo(Campaign::class);
     }
 }

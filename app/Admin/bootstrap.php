@@ -18,4 +18,43 @@
  *
  */
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use OpenAdmin\Admin\Form;
+use OpenAdmin\Admin\Grid;
+
 OpenAdmin\Admin\Form::forget(['editor']);
+/** @var User $user */
+$user = Auth::user();
+
+Form::init(function (Form $form) use ($user) {
+    $form->disableEditingCheck();
+
+    $form->disableCreatingCheck();
+
+    $form->disableViewCheck();
+
+    $form->tools(function (Form\Tools $tools) use ($user) {
+        if(!$user->isAdministrator()) {
+            $tools->disableDelete();
+        }
+        $tools->disableView();
+    });
+});
+
+Grid::init(function (Grid $grid) use ($user) {
+    $grid->tools(function (Grid\Tools $tools) {
+        $tools->disableBatchActions();
+    });
+    $grid->disableExport();
+    $grid->actions(function (Grid\Displayers\Actions\Actions $actions) use ($user) {
+        $actions->disableShow();
+        $actions->disableView();
+        if(!$user->isAdministrator()) {
+            $actions->disableDelete();
+        }
+    });
+    $grid->filter(function(Grid\Filter $filter) {
+        $filter->disableIdFilter();
+    });
+});

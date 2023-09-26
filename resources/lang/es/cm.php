@@ -1,5 +1,7 @@
 <?php
 return [
+    "created_at" => "Fecha creación",
+    "updated_at" => "Fecha última modificación",
     "campaigns" => [
         "status" => [
             "created" => "Creada",
@@ -23,5 +25,41 @@ return [
         "general" => "General",
         "receivers" => "Público de la campaña",
         "title" => "Gestor de campañas",
-    ]
+        "groups" => "Grupos",
+        "contacts" => "Contactos",
+        'actions' => [
+            'cancel_campaigns' => 'Cancelar campañas',
+            'launch_campaigns' => 'Lanzar campañas',
+            'campaign_launched_succeed' => 'Campaña lanzada correctamente',
+            'campaign_launched_error' => 'No se han podido lanzar todas las campañas, por favor revísalas',
+            'campaign_cancelled_succeed' => 'Campaña cancelada correctamente',
+            'campaign_cancelled_error' => 'No se han podido cancelar las campañas',
+        ],
+    ],
+    "contacts" => [
+        "title" => "Contactos",
+        "name" => "Nombre",
+        "last_name" => "Apellidos",
+        "company" => "Empresa",
+        "customer_associated" => "Cliente asociado",
+        "email" => "Email",
+        "phone" => "Teléfono",
+        "bounced_at" => "Último rechazo email",
+        "unsubscribed_at" => "Baja de notificaciones",
+        "group" => "Grupo",
+    ],
+    "groups" => [
+        "title" => "Grupos",
+        "name" => "Nombre del grupo",
+        "customer_name" => "Cliente",
+        "contacts_count" => "Total de contactos",
+        "bounced_count" => "Total de contactos rebotados",
+        "unsubscribed_count" => "Total de contactos dados de baja",
+    ],
+    "templates" => [
+        "title" => "Plantillas de email",
+        "name" => "Nombre de la plantilla",
+        "label" => "Asunto del correo",
+        "content" => "Contenido",
+    ],
 ];

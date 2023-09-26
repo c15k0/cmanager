@@ -15,12 +15,23 @@ class GroupSelector extends Selectable {
     {
         /** @var User $user */
         $user = Auth::user();
+        $this->column('name', __('cm.contacts.name'));
         if(!$user->isRole('administrator')) {
             $this->model()
-                ->whereIn('customer_id', $user->customers()->pluck('id')->toArray());
+                ->whereIn('customer_id', $user
+                    ->customers()
+                    ->pluck('customers.id')
+                    ->toArray()
+                );
+        } else {
+            $this->column('customer.name', __('cm.contacts.customer_name'));
         }
-        $this->column('name', __('Name'));
-        $this->column('customer.name', __('Customer'));
+        $this->column('contacts', __('cm.groups.contacts_count'))
+            ->display(fn($contacts) => count($contacts));
+        $this->column('bounced_contacts', __('cm.groups.bounced_count'))
+            ->display(fn($contacts) => count($contacts));
+        $this->column('unsubscribed_contacts', __('cm.groups.unsubscribed_count'))
+            ->display(fn($contacts) => count($contacts));
 
         $this->filter(function(Filter $filter) use ($user) {
             $filter->like('name', __('Name'));

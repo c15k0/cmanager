@@ -2,7 +2,8 @@ version: "3.7"
 
 services:
     php:
-        image: c15k02k18/php:8.2 # Add -xdebug to enable the debugger in your local env
+        build:
+            dockerfile: ./docker/php/Dockerfile
         restart: always
         tty: true
         environment:
@@ -17,6 +18,12 @@ services:
             ADMIN_HTTPS: "${ADMIN_HTTPS:-false}"
             APP_DEBUG: "${APP_DEBUG:-true}"
             MAIL_MAILER: "${MAIL_MAILER:-smtp}"
+            AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID:-}"
+            AWS_BUCKET: "${AWS_BUCKET:-}"
+            AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION:-}"
+            AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY:-}"
+            AWS_URL: "${AWS_URL:-}"
+            APP_URL: "${APP_URL:-http://localhost:8087}"
         volumes:
             - .:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -45,10 +52,6 @@ services:
         image: redis:latest
         networks:
             - cmanager-network
-        healthcheck:
-            test: "CMD redis-cli ping"
-            retries: 3
-            timeout: 5s
 
     mailer:
         image: 'axllent/mailpit:latest'
@@ -96,3 +99,6 @@ services:
 networks:
     cmanager-network:
         driver: bridge
+
+volumes:
+    wordpress:

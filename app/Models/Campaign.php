@@ -9,7 +9,7 @@ class Campaign extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        "code", "title", "start_at", "template_id", "customer_id", "status",
+        "code", "title", "start_at", "template_id", "customer_id", "status", 'label', 'raw'
     ];
 
     public static function getStatuses() {
@@ -33,5 +33,13 @@ class Campaign extends Model
 
     public function receivers() {
         return $this->hasMany(Receiver::class);
+    }
+
+    public function groups() {
+        return $this->belongsToMany(Group::class, 'campaigns_groups');
+    }
+
+    public function contacts() {
+        return $this->belongsToMany(Contact::class, 'campaigns_contacts');
     }
 }

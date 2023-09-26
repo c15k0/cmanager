@@ -20,6 +20,11 @@ class TemplateController extends AdminController
      */
     protected $title = 'Template';
 
+    public function __construct()
+    {
+        $this->title = __('cm.templates.title');
+    }
+
     /**
      * Make a grid builder.
      *
@@ -28,11 +33,22 @@ class TemplateController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Template());
-
-        $grid->column('name', __('Name'));
-        $grid->column('label', __('Título'));
-        $grid->column('customer.name', __('Customer'));
-
+        /** @var User $user */
+        $user = Auth::user();
+        if ($user->isAdministrator() || $user->customers()->count() > 1) {
+            $grid->column('customer.name', __('cm.contacts.customer_associated'));
+        }
+        if(!$user->isAdministrator()) {
+            $grid->model()->whereIn('customer_id', $user->customers()->pluck('customers.id'));
+        }
+        $grid->column('name', __('cm.templates.name'));
+        $grid->column('label', __('cm.templates.label'));
+        $grid->column('updated_at', __('cm.updated_at'))
+            ->display(function($timestamp) {
+                $ts = \DateTime::createFromFormat('Y-m-d\TH:i:s', substr($timestamp, 0, 19));
+                return $ts ? $ts->format('Y-m-d H:i:s') : substr($timestamp, 0, 19);
+            })
+        ;
         return $grid;
     }
 
@@ -45,11 +61,9 @@ class TemplateController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Template::findOrFail($id));
-
-        $show->field('name', __('Name'));
-        $show->field('label', __('Title'));
-        $show->field('customer.name', __('Customer'));
-
+        $show->field('customer.name', __('cm.groups.customer_name'));
+        $show->field('name', __('cm.templates.name'));
+        $show->field('label', __('cm.templates.label'));
         return $show;
     }
 
@@ -63,19 +77,22 @@ class TemplateController extends AdminController
         $form = new Form(new Template());
         /** @var User $user */
         $user = Auth::user();
-        if($user->isRole('administrator')) {
+        if ($user->isAdministrator()) {
             $customers = Customer::query()->orderBy('name')->pluck('name', 'id')->toArray();
         } else {
             $customers = $user->customers()->pluck('customers.name', 'customers.id')->toArray();
         }
-        $form->text('name', __('Name'))->required();
-        $form->text('label', __('Título'))->required();
-        $form->select('customer_id', __('Customer'))
-            ->required()
-            ->options($customers)
-            ->default(array_slice($customers, 0, 1));
-        $form->ckeditor('raw', __('Contenido'))->required();
-
+        if(count($customers) > 1) {
+            $form->select('customer_id', __('cm.groups.customer_name'))
+                ->required()
+                ->options($customers)
+                ->default(array_slice($customers, 0, 1));
+        } else {
+            $form->hidden('customer_id')->default(array_key_first($customers));
+        }
+        $form->text('name', __('cm.templates.name'))->required();
+        $form->text('label', __('cm.templates.label'))->required();
+        $form->ckeditor('raw', __('cm.templates.content'))->required();
         return $form;
     }
 }
