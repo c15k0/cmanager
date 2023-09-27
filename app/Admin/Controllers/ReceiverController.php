@@ -25,8 +25,18 @@ class ReceiverController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Receiver());
-
-
+        $grid->column('campaign.title', 'Campaign');
+        $grid->column('contact.email', 'Email');
+        $grid->column('status', 'Estado');
+        $grid->column('first_opened_at', 'Lectura');
+        $grid->column('error', 'Error')->limit(25);
+        $grid->disableExport();
+        $grid->disableCreateButton();
+        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
+            $actions->disableView();
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
 
         return $grid;
     }
