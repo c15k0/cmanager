@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->string('label')->comment('Template subject copy');
-            $table->longText('raw')->comment('Template body copy');
+            $table->string('label')->nullable(true)->comment('Template subject copy');
+            $table->longText('raw')->nullable(true)->comment('Template body copy');
         });
     }
 

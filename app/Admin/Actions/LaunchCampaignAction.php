@@ -17,13 +17,15 @@ class LaunchCampaignAction extends BatchAction
         $success = true;
         /** @var Campaign $campaign */
         foreach ($collection as $campaign) {
-            if(in_array($campaign->status, ['created', 'error'])) {
+            if(in_array($campaign->status, ['ready', 'created', 'error'])) {
                 $campaign->status = 'ready';
                 $campaign->label = $campaign->template->label;
                 $campaign->raw = $campaign->template->raw;
                 $campaign->save();
-                LaunchCampaignJob::dispatch($campaign)
-                    ->onQueue('campaigns');
+                if(null === $campaign->start_at || $campaign->start_at <= now()) {
+                    LaunchCampaignJob::dispatch($campaign)
+                        ->onQueue('campaigns');
+                }
             } else {
                 $success = false;
             }

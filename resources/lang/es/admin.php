@@ -94,4 +94,6 @@ return [
     'batch_edit' => 'Edición masiva',
     'time' => 'Fecha de creación',
     'size' => 'Tamaño fichero',
+    'unsubscribe' => 'Darse de baja de las notificaciones',
+    'unsubscribe_message' => "Se ha procedido a dar de baja su email de contacto de nuestra base de datos. Gracias."
 ];

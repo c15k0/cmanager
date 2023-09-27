@@ -23,8 +23,8 @@ class CreateReceiversTable extends Migration
             $table->string('hash')->unique();
             $table->enum('status', ['created', 'sent', 'error'])->default('created');
             $table->text('error')->nullable();
-            $table->timestamp('first_opened_at');
-            $table->timestamp('last_opened_at');
+            $table->timestamp('first_opened_at')->nullable(true);
+            $table->timestamp('last_opened_at')->nullable(true);
             $table->timestamps();
         });
     }

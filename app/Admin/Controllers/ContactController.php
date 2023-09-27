@@ -116,10 +116,8 @@ class ContactController extends AdminController
         $form->text('name', __('cm.contacts.name'))->required();
         $form->text('last_name', __('cm.contacts.last_name'));
         $form->email('email', __('cm.contacts.email'))->required();
-        $form->select('customer_id', __('cm.contacts.customer_associated'))
-            ->required()
-            ->options($customers)
-            ->default(array_slice($customers, 0, 1));
+        $form->text('company_name', __('cm.contacts.company'))
+            ->required();
         $form->phonenumber('phone', __('cm.contacts.phone'));
         if($form->isEditing()) {
             $form->datetime('bounced_at', __('cm.contacts.bounced_at'))->readonly();

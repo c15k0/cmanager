@@ -35,6 +35,10 @@ class Campaign extends Model
         return $this->hasMany(Receiver::class);
     }
 
+    public function failed_receivers() {
+        return $this->receivers()->where('status', 'error');
+    }
+
     public function groups() {
         return $this->belongsToMany(Group::class, 'campaigns_groups');
     }
