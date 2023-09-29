@@ -35,6 +35,7 @@ services:
         command: 'php-fpm'
 
     db:
+        restart: unless-stopped
         image: mariadb:latest
         networks:
             - cmanager-network
@@ -46,12 +47,24 @@ services:
         volumes:
             - "${DB_LOCAL_DATA_PATH:-./storage/db}:/var/lib/mysql"
             - "./docker/mysql/my.cnf:/etc/mysql/my.cnf"
+        healthcheck:
+            test: healthcheck.sh --connect
+            interval: 30s
+            retries: 5
+            start_period: 30s
+            timeout: 5s
 
     redis:
         restart: always
         image: redis:latest
         networks:
             - cmanager-network
+        healthcheck:
+            test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+            interval: 1s
+            timeout: 3s
+            start_period: 30s
+            retries: 5
 
     mailer:
         image: 'axllent/mailpit:latest'
