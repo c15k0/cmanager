@@ -88,7 +88,7 @@ class TemplateController extends AdminController
                 ->options($customers)
                 ->default(array_slice($customers, 0, 1));
         } else {
-            $form->hidden('customer_id')->default(array_key_first($customers));
+            $form->hidden('customer_id')->default(array_key_first($customers))->value(array_key_first($customers));
         }
         $form->text('name', __('cm.templates.name'))->required();
         $form->text('label', __('cm.templates.label'))->required();

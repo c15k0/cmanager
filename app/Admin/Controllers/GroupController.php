@@ -84,7 +84,7 @@ class GroupController extends AdminController
                 ->options($customers)
                 ->default(array_slice($customers, 0, 1));
         } else {
-            $form->hidden('customer_id')->default(array_key_first($customers));
+            $form->hidden('customer_id')->default(array_key_first($customers))->value(array_key_first($customers));
         }
         $form->text('name', __('cm.groups.name'))->required();
         $form->belongsToMany('contacts', ContactSelector::class, __('cm.contacts.title'));

@@ -150,7 +150,7 @@ class CampaignController extends AdminController
                     ->options($customers)
                     ->default(array_slice($customers, 0, 1));
             } else {
-                $form->hidden('customer_id')->default(array_key_first($customers));
+                $form->hidden('customer_id')->default(array_key_first($customers))->value(array_key_first($customers));
             }
             $templates = Template::query()
                 ->join('customers as c', 'c.id', '=', 'templates.customer_id')
