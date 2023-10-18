@@ -265,7 +265,7 @@
 	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
 	3. mso conditional: For Windows 10 Mail
 -->
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;" class="email-bg">
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly;" class="email-bg">
 <img src="{{ route('tracking', ['hash' => $tracking]) }}" height="0" width="0" style="border: none;"/>
 <div role="article" aria-roledescription="email" lang="en" style="width: 100%; margin: 10px;" class="email-bg">
     <!--[if mso | IE]>
