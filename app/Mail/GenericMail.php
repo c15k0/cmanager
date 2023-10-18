@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use function PHPUnit\Framework\throwException;
 
 class GenericMail extends Mailable
@@ -91,6 +92,7 @@ class GenericMail extends Mailable
             $this->receiver->campaign->update([
                 'status' => 'error',
             ]);
+            Log::error($exception->getMessage());
             throwException($exception);
         }
         return $send;
