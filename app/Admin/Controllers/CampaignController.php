@@ -172,8 +172,10 @@ class CampaignController extends AdminController
             $form->datetime('start_at', __('cm.campaigns.start_date'))
                 ->help(__('cm.campaigns.helps.start_date'));
         })->tab(__('cm.campaigns.receivers'), function ($form) {
-            $form->belongsToMany('groups', GroupSelector::class, __('cm.contacts.group'));
-            $form->belongsToMany('contacts', ContactSelector::class, __('cm.contacts.title'));
+            $form->belongsToMany('groups', GroupSelector::class, __('cm.contacts.group'))
+            ->help('Adjunta tantos grupos de contactos como necesites.');
+            $form->belongsToMany('contacts', ContactSelector::class, __('cm.contacts.title'))
+            ->help('Puedes añadir de manera individual tantos contactos como necesites. Si el contacto ya se encuentra en un grupo asociado, el gestor lo ignorará.');
         });
         if($form->isEditing()) {
             $campaign = Campaign::query()->find(request()->route('campaign'));

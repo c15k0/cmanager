@@ -20,7 +20,7 @@ class ContactSelector extends Selectable
         $user = Auth::user();
         $this->model()
             ->addSelect('*')
-            ->addSelect(DB::raw("CONCAT(name, ' ', COALESCE(last_name)) as full_name"));
+            ->addSelect(DB::raw("CONCAT(name, ' ', COALESCE(last_name, '')) as full_name"));
         $this->column('full_name', __('cm.contacts.name'));
         $this->column('company_name', __('cm.contacts.company'));
         $this->column('email', __('cm.contacts.email'));

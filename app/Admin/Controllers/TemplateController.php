@@ -92,7 +92,21 @@ class TemplateController extends AdminController
         }
         $form->text('name', __('cm.templates.name'))->required();
         $form->text('label', __('cm.templates.label'))->required();
-        $form->ckeditor('raw', __('cm.templates.content'))->required();
+        $form->ckeditor('raw', __('cm.templates.content'))->required()
+        ->help('<h2>Consejos de plantillas</h2>' .
+            '<p>Si se van a utilizar imágenes, se recomienda que en la pestaña de <em>V&iacute;nculo</em> se copie la' .
+            ' url de la imagen y en el desplegable se seleccione <em>_blank</em>. Puedes editar la imagen haciendo doble click en ella.</p>' .
+            '<p>No incluyas la firma del correo, el gestor automáticamente lo incluye en todos los correos junto con la opción de darse de baja de los emails</p>' .
+            '<h3>Tags de reemplazo</h3>' .
+            'Puedes usar los siguientes tags dentro de la plantilla para que el gestor lo cambie por el dato del contacto:' .
+            '<ul>' .
+            '<li><code>{{name}}</code>: Nombre del contacto</li>' .
+            '<li><code>{{last_name}}</code>: Apellidos del contacto</li>' .
+            '<li><code>{{company_name}}</code>: Nombre de la empresa</li>' .
+            '<li><code>{{phone}}</code>: Teléfono del contacto</li>' .
+            '<li><code>{{email}}</code>: Email del contacto</li>' .
+            '</ul>'
+        );
         return $form;
     }
 }

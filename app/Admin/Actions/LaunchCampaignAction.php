@@ -20,7 +20,7 @@ class LaunchCampaignAction extends BatchAction
             if(in_array($campaign->status, ['ready', 'created', 'error'])) {
                 $campaign->status = 'ready';
                 $campaign->label = $campaign->template->label;
-                $campaign->raw = $campaign->template->raw;
+                $campaign->raw = $campaign->template->raw . '<br>' . $campaign->customer->signature;
                 $campaign->save();
                 if(null === $campaign->start_at || $campaign->start_at <= now()) {
                     LaunchCampaignJob::dispatch($campaign)
