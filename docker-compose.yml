@@ -50,7 +50,7 @@ services:
         ports:
             - "${DB_PORT:-3306}:3306"
         healthcheck:
-            test: healthcheck.sh --connect
+            test: ["CMD", "mariadb-admin" ,"ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-toor}"]
             interval: 30s
             retries: 5
             start_period: 30s
@@ -93,6 +93,11 @@ services:
             - php
         networks:
             - cmanager-network
+        healthcheck:
+            test: ["CMD", "service", "nginx", "status"]
+            interval: 1s
+            timeout: 3s
+            retries: 5
 
     admin:
         image: phpmyadmin/phpmyadmin
